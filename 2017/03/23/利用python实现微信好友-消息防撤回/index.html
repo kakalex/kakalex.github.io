@@ -105,37 +105,40 @@
 
 
 
-<meta name="description" content="import os, re, time
+<meta name="description" content="`
+import os, re, time
 import itchat
 
 def Execution(msg):
     command = msg[&apos;Text&apos;]
     print(&apos;command:&apos;, command)
     if re.search(r&apos;(.*?)文件\[(.*?)\]&apos;, command):
-        action, filename = re.search(r&apos;">
+        action, filename = re.search">
 <meta property="og:type" content="article">
 <meta property="og:title" content="利用python实现微信好友/消息防撤回">
 <meta property="og:url" content="https://kakalex.github.io/2017/03/23/利用python实现微信好友-消息防撤回/index.html">
 <meta property="og:site_name" content="Alex’s Notes">
-<meta property="og:description" content="import os, re, time
+<meta property="og:description" content="`
+import os, re, time
 import itchat
 
 def Execution(msg):
     command = msg[&apos;Text&apos;]
     print(&apos;command:&apos;, command)
     if re.search(r&apos;(.*?)文件\[(.*?)\]&apos;, command):
-        action, filename = re.search(r&apos;">
-<meta property="og:updated_time" content="2017-03-22T16:52:45.484Z">
+        action, filename = re.search">
+<meta property="og:updated_time" content="2017-03-22T16:57:28.345Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="利用python实现微信好友/消息防撤回">
-<meta name="twitter:description" content="import os, re, time
+<meta name="twitter:description" content="`
+import os, re, time
 import itchat
 
 def Execution(msg):
     command = msg[&apos;Text&apos;]
     print(&apos;command:&apos;, command)
     if re.search(r&apos;(.*?)文件\[(.*?)\]&apos;, command):
-        action, filename = re.search(r&apos;">
+        action, filename = re.search">
 
 
 
@@ -397,6 +400,7 @@ def Execution(msg):
 
       
         <pre><code>
+ `
 import os, re, time
 import itchat
 
@@ -451,6 +455,7 @@ def ReturnAttachmentList():
     else:
         itchat.send(r'暂时没有撤回附件', toUserName='filehelper')
     return (3, '附件列表', '成功')
+ `
 </code></pre>
 
       
