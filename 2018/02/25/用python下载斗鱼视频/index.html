@@ -1,0 +1,833 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, Alex" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="最近在斗鱼中看到很多有意思的视频，想下载下来，于是考虑到了python。
+下载视频的步骤主要有以下几点：
+1：找到网页的视频索引文件m3u82：分析m3u8文件，找到各个ts文件下载地址，将ts文件下载到临时文件中3：使用ffmpeg工具将ts文件合并成视频4：删除临时文件
+主要代码如下：1234567891011121314151617181920212223242526272829303132">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用python下载斗鱼视频">
+<meta property="og:url" content="https://kakalex.github.io/2018/02/25/用python下载斗鱼视频/index.html">
+<meta property="og:site_name" content="Alex’s Notes">
+<meta property="og:description" content="最近在斗鱼中看到很多有意思的视频，想下载下来，于是考虑到了python。
+下载视频的步骤主要有以下几点：
+1：找到网页的视频索引文件m3u82：分析m3u8文件，找到各个ts文件下载地址，将ts文件下载到临时文件中3：使用ffmpeg工具将ts文件合并成视频4：删除临时文件
+主要代码如下：1234567891011121314151617181920212223242526272829303132">
+<meta property="og:updated_time" content="2018-02-28T13:34:54.170Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="用python下载斗鱼视频">
+<meta name="twitter:description" content="最近在斗鱼中看到很多有意思的视频，想下载下来，于是考虑到了python。
+下载视频的步骤主要有以下几点：
+1：找到网页的视频索引文件m3u82：分析m3u8文件，找到各个ts文件下载地址，将ts文件下载到临时文件中3：使用ffmpeg工具将ts文件合并成视频4：删除临时文件
+主要代码如下：1234567891011121314151617181920212223242526272829303132">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://kakalex.github.io/2018/02/25/用python下载斗鱼视频/"/>
+
+
+
+
+
+  <title> 用python下载斗鱼视频 | Alex’s Notes </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?d62cb708729c57d32aad6f1e1b934caa";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Alex’s Notes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">照猫画虎</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://kakalex.github.io/2018/02/25/用python下载斗鱼视频/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Alex">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Alex’s Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                用python下载斗鱼视频
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-25T21:10:51+08:00">
+                2018-02-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/02/25/用python下载斗鱼视频/" class="leancloud_visitors" data-flag-title="用python下载斗鱼视频">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>最近在斗鱼中看到很多有意思的视频，想下载下来，于是考虑到了python。</p>
+<p>下载视频的步骤主要有以下几点：</p>
+<p>1：找到网页的视频索引文件m3u8<br>2：分析m3u8文件，找到各个ts文件下载地址，将ts文件下载到临时文件中<br>3：使用ffmpeg工具将ts文件合并成视频<br>4：删除临时文件</p>
+<p>主要代码如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> urllib.request <span class="keyword">import</span> urlretrieve</div><div class="line"><span class="keyword">import</span> requests</div><div class="line"><span class="keyword">import</span> os</div><div class="line"><span class="keyword">import</span> subprocess</div><div class="line"><span class="keyword">import</span> sys</div><div class="line"></div><div class="line"><span class="comment"># 获取斗鱼视频m3u8文件地址</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_m3u8_url</span><span class="params">(v_key)</span>:</span></div><div class="line">    headers = &#123;</div><div class="line">    <span class="string">'User-Agent'</span>:<span class="string">'Mozilla/5.0 (iPad; CPU OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B137 Safari/601.1'</span>,</div><div class="line">    <span class="string">'Host'</span>:<span class="string">'vmobile.douyu.com'</span>,</div><div class="line">    &#125;</div><div class="line">    payload = &#123;</div><div class="line">    <span class="string">'vid'</span>:v_key,</div><div class="line">    &#125;</div><div class="line">    base_url = <span class="string">'https://vmobile.douyu.com/video/getInfo'</span></div><div class="line">    r = requests.get(base_url, params=payload)</div><div class="line">    print(r.json()[<span class="string">'data'</span>][<span class="string">'video_url'</span>])</div><div class="line">    <span class="keyword">return</span> r.json()[<span class="string">'data'</span>][<span class="string">'video_url'</span>]</div><div class="line"></div><div class="line"><span class="comment"># 获取视频名称</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_video_title</span><span class="params">(v_key)</span>:</span></div><div class="line">    headers = &#123;</div><div class="line">    <span class="string">'User-Agent'</span>:<span class="string">'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36'</span>,</div><div class="line">    <span class="string">'Host'</span>:<span class="string">'v.douyu.com'</span>,</div><div class="line">    &#125;</div><div class="line">    payload = &#123;</div><div class="line">    <span class="string">'vid'</span>:v_key,</div><div class="line">    &#125;</div><div class="line">    base_url = <span class="string">'https://v.douyu.com/video/video/getVideoUrl'</span></div><div class="line">    r = requests.get(base_url, params=payload)</div><div class="line">    <span class="comment"># print(r.json()['data']['title'])</span></div><div class="line">    <span class="keyword">return</span> r.json()[<span class="string">'data'</span>][<span class="string">'title'</span>]</div><div class="line"></div><div class="line"><span class="comment"># 获取ts视频文件地址</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">m3u8_list</span><span class="params">(m3u8_url, title)</span>:</span></div><div class="line">    urlretrieve(m3u8_url, title+<span class="string">'.m3u8'</span>)</div><div class="line">    m3u8_url_list = []</div><div class="line">    <span class="keyword">with</span> open(title+<span class="string">'.m3u8'</span>, <span class="string">'rt'</span>) <span class="keyword">as</span> fout:</div><div class="line">        <span class="comment"># print(fout.read())</span></div><div class="line">        flag = <span class="keyword">False</span></div><div class="line">        <span class="keyword">for</span> f <span class="keyword">in</span> fout.readlines():</div><div class="line">            <span class="keyword">if</span> f.startswith(<span class="string">'#EXTINF'</span>):</div><div class="line">                flag = <span class="keyword">True</span></div><div class="line">            <span class="keyword">elif</span> flag:</div><div class="line">                <span class="comment"># print(f)</span></div><div class="line">                m3u8_url_list.append(f[<span class="number">0</span>:<span class="number">-1</span>])</div><div class="line">                flag = <span class="keyword">False</span></div><div class="line">            <span class="keyword">else</span>:</div><div class="line">                <span class="keyword">pass</span></div><div class="line">    <span class="keyword">return</span> m3u8_url_list</div><div class="line"></div><div class="line"><span class="comment"># 下载ts视频到临时文件夹中</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">down_ts</span><span class="params">(base_m3u8_url, m3u8_url_list, path=<span class="string">''</span>, title=<span class="string">''</span>)</span>:</span></div><div class="line">    <span class="keyword">for</span> index, item <span class="keyword">in</span> enumerate(m3u8_url_list):</div><div class="line">        url = base_m3u8_url + item</div><div class="line">        <span class="comment"># print(url)</span></div><div class="line">        name = path + <span class="string">'\\'</span> + str(index) + <span class="string">'.ts'</span></div><div class="line">        urlretrieve(url, name)</div><div class="line">        print(<span class="string">'[%d/%d]Now Downing %s%d.ts'</span> %(index, len(m3u8_url_list)<span class="number">-1</span>, title, index))</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">write_confile</span><span class="params">(path, ts_len)</span>:</span></div><div class="line">    txt = <span class="string">''</span></div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(ts_len):</div><div class="line">        txt += <span class="string">'file \'%s/%d.ts\'\n'</span> %(path, i)</div><div class="line"></div><div class="line">    <span class="keyword">with</span> open(<span class="string">'confile.txt'</span>, <span class="string">'w'</span>) <span class="keyword">as</span> fout:</div><div class="line">        fout.write(txt[<span class="number">0</span>:<span class="number">-1</span>])</div><div class="line"></div><div class="line"><span class="comment"># 合并ts视频文件</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">merge_ts_video</span><span class="params">(title, v_type=<span class="string">'.mp4'</span>)</span>:</span></div><div class="line">    cmd = <span class="string">'ffmpeg -f concat -i confile.txt -c copy %s%s'</span> %(title, v_type)</div><div class="line">    print(cmd)</div><div class="line">    p = subprocess.Popen(cmd, stdin=subprocess.DEVNULL, stdout=subprocess.PIPE, stderr=subprocess.PIPE)</div><div class="line">    out, err = p.communicate()</div><div class="line">    print(str(out, <span class="string">'utf-8'</span>))</div><div class="line">    print(str(err, <span class="string">'utf-8'</span>))</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">(v_key)</span>:</span></div><div class="line">    title = get_video_title(v_key)</div><div class="line">    m3u8_url = get_m3u8_url(v_key)</div><div class="line">    m3u8_url_list = m3u8_list(m3u8_url, title)</div><div class="line">    ts_len = len(m3u8_url_list)</div><div class="line">    <span class="keyword">if</span> os.path.exists(v_key):</div><div class="line">        os.removedirs(v_key)</div><div class="line">    os.mkdir(v_key)</div><div class="line">    base_m3u8_url = m3u8_url.split(<span class="string">'playlist.m3u8'</span>)[<span class="number">0</span>]</div><div class="line">    down_ts(base_m3u8_url, m3u8_url_list, path=v_key+<span class="string">'\\'</span>, title=title)</div><div class="line">    write_confile(v_key, ts_len)</div><div class="line">    <span class="keyword">try</span>:</div><div class="line">        merge_ts_video(v_key)</div><div class="line">        os.rename(v_key+<span class="string">'.mp4'</span>, title+<span class="string">'.mp4'</span>)</div><div class="line">        <span class="comment"># 删除临时文件</span></div><div class="line">        delList = os.listdir(v_key)</div><div class="line">        <span class="keyword">for</span> item <span class="keyword">in</span> delList:</div><div class="line">            del_path = os.path.join(v_key, item)</div><div class="line">            os.remove(del_path)</div><div class="line">        os.removedirs(v_key)</div><div class="line">        os.remove(<span class="string">'confile.txt'</span>)</div><div class="line">        os.remove(title+<span class="string">'.m3u8'</span>)</div><div class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</div><div class="line">        print(e)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">usage</span><span class="params">()</span>:</span></div><div class="line">    print()</div><div class="line">    print(<span class="string">'Usage: down_douyu_video.py url'</span>)</div><div class="line">    print(<span class="string">'Example: down_douyu_video.py https://v.douyu.com/show/kJmbBMkwG4wM40XA'</span>)</div><div class="line">    print()</div><div class="line">        </div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</div><div class="line">    <span class="keyword">try</span>:</div><div class="line">        url = sys.argv[<span class="number">1</span>]</div><div class="line">        v_key = url.split(<span class="string">'show/'</span>)[<span class="number">1</span>]</div><div class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</div><div class="line">        <span class="comment"># print(e)</span></div><div class="line">        usage()</div><div class="line">    <span class="keyword">else</span>:</div><div class="line">        main(v_key)</div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/16/面试总结1-16/" rel="next" title="面试总结1.16">
+                <i class="fa fa-chevron-left"></i> 面试总结1.16
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="Alex" />
+          <p class="site-author-name" itemprop="name">Alex</p>
+           
+              <p class="site-description motion-element" itemprop="description">小仓库</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+        
+        <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=108242&auto=0&height=66"></iframe>
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Alex</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("", "");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
